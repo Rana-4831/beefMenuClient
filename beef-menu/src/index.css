@@ -1,0 +1,227 @@
+@import "tailwindcss";
+
+@theme {
+  --color-bg: #1a1914;
+  --color-accent: #850013;
+
+  --font-sans: "Vazirmatn", ui-sans-serif, system-ui, sans-serif;
+  --font-serif: "Lalezar", serif;
+  --font-latin-serif: "Cormorant Garamond", serif;
+}
+
+/* تیتر در انگلیسی و ترکی از فونت لاتین استفاده کنه */
+:lang(en) .font-serif,
+:lang(tr) .font-serif {
+  font-family: var(--font-latin-serif);
+}
+
+body {
+  background-color: var(--color-bg);
+  color: white;
+}
+
+/* لایه‌ی بک‌گراند ثابت؛ بعداً عکس رو اینجا می‌ذاریم */
+body::before {
+  content: "";
+  position: fixed;
+  inset: 0;
+  z-index: -2;
+  background: url("/images/bg.webp") center / cover no-repeat;
+  opacity: 0.18;
+  filter: blur(2px) saturate(0.75);
+}
+
+body::after {
+  content: "";
+  position: fixed;
+  inset: 0;
+  z-index: -1;
+  background:
+    radial-gradient(60% 40% at 85% 10%, color-mix(in oklab, var(--color-accent) 45%, transparent), transparent 70%),
+    radial-gradient(70% 40% at 80% 85%, color-mix(in oklab, var(--color-accent) 40%, transparent), transparent 70%),
+    linear-gradient(rgba(26, 25, 20, 0.35), rgba(26, 25, 20, 0.7));
+  pointer-events: none;
+}
+
+
+/* ---------- Products ---------- */
+
+.products-scroll {
+  scrollbar-width: none;
+  padding-inline: calc(50% - 6.5rem);
+}
+
+.products-scroll::-webkit-scrollbar {
+  display: none;
+}
+
+/* کارت شیشه‌ای */
+.glass-card {
+  position: relative;
+  border-radius: 1.5rem;
+  background: linear-gradient(160deg,
+      rgba(255, 255, 255, 0.1) 0%,
+      rgba(255, 255, 255, 0.03) 50%,
+      rgba(255, 255, 255, 0.05) 100%);
+  box-shadow:
+    inset 0 1px 0 rgba(255, 255, 255, 0.22),
+    inset 0 -10px 24px rgba(0, 0, 0, 0.25),
+    0 14px 32px rgba(0, 0, 0, 0.45);
+  transform: scale(0.88);
+  opacity: 0.5;
+  transition:
+    transform 0.45s cubic-bezier(0.2, 0.8, 0.2, 1),
+    opacity 0.45s ease;
+  cursor: pointer;
+}
+
+.glass-card[data-focused='true'] {
+  transform: scale(1.06);
+  opacity: 1;
+}
+
+/* نور سفید روی لبه‌ها */
+.glass-card::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  padding: 1px;
+  border-radius: inherit;
+  background: linear-gradient(135deg,
+      rgba(255, 255, 255, 0.6) 0%,
+      rgba(255, 255, 255, 0.08) 30%,
+      rgba(255, 255, 255, 0.02) 60%,
+      rgba(255, 255, 255, 0.28) 100%);
+  -webkit-mask:
+    linear-gradient(#000 0 0) content-box,
+    linear-gradient(#000 0 0);
+  -webkit-mask-composite: xor;
+  mask:
+    linear-gradient(#000 0 0) content-box exclude,
+    linear-gradient(#000 0 0);
+  pointer-events: none;
+}
+
+/* بازتاب نور نرم گوشه‌ی بالا */
+.glass-card::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  border-radius: inherit;
+  background: radial-gradient(120% 70% at 0% 0%,
+      rgba(255, 255, 255, 0.16),
+      transparent 55%);
+  pointer-events: none;
+}
+
+/* محتوای کارت */
+.product-image {
+  aspect-ratio: 1 / 1;
+  display: grid;
+  place-items: center;
+  border-radius: 1rem;
+  background: rgba(0, 0, 0, 0.2);
+  overflow: hidden;
+}
+
+.product-image:has(img) {
+  background: none;
+  overflow: visible;
+}
+
+.product-image img {
+  width: 100%;
+  height: 100%;
+  object-fit: contain;
+  filter: drop-shadow(0 14px 12px rgba(0, 0, 0, 0.55));
+}
+
+
+.product-title {
+  margin-top: 0.75rem;
+  font-size: 0.95rem;
+  font-weight: 600;
+  color: #fff;
+}
+
+.product-desc {
+  margin-top: 0.25rem;
+  font-size: 0.75rem;
+  line-height: 1.5;
+  color: rgba(255, 255, 255, 0.6);
+}
+
+.product-footer {
+  margin-top: 0.75rem;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 0.5rem;
+  font-size: 0.75rem;
+}
+
+.product-price {
+  color: #fff;
+  font-weight: 600;
+}
+
+.product-status {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.375rem;
+  color: rgba(255, 255, 255, 0.6);
+}
+
+.product-status-dot {
+  width: 0.5rem;
+  height: 0.5rem;
+  border-radius: 9999px;
+  background: #4ade80;
+}
+
+.product-status[data-available='false'] .product-status-dot {
+  background: #850013;
+}
+
+/* بیضی شیشه‌ای وضعیت */
+.product-status {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.375rem;
+  padding: 0.25rem 0.75rem;
+  border-radius: 9999px;
+  color: rgba(255, 255, 255, 0.9);
+  background: linear-gradient(160deg,
+      rgba(255, 255, 255, 0.16) 0%,
+      rgba(255, 255, 255, 0.04) 100%);
+  -webkit-backdrop-filter: blur(10px);
+  backdrop-filter: blur(10px);
+  box-shadow:
+    inset 0 1px 0 rgba(255, 255, 255, 0.3),
+    inset 0 -4px 10px rgba(0, 0, 0, 0.2),
+    0 4px 12px rgba(0, 0, 0, 0.3);
+}
+
+.product-status-dot {
+  width: 0.5rem;
+  height: 0.5rem;
+  border-radius: 9999px;
+  background: #4ade80;
+}
+
+.product-status[data-available='false'] {
+  color: rgba(255, 255, 255, 0.9);
+}
+
+.product-status[data-available='false'] .product-status-dot {
+  background: #850013;
+}
+
+
+/* محصول ناموجود: متن‌ها کم‌رنگ، بیضی وضعیت واضح بمونه */
+.glass-card[data-available='false'] .product-title,
+.glass-card[data-available='false'] .product-desc,
+.glass-card[data-available='false'] .product-price,
+.glass-card[data-available='false'] .product-image {
+  opacity: 0.4;
+}

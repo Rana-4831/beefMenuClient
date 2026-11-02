@@ -1,0 +1,19 @@
+{
+  "header": {
+    "title": "Lezzetli Yemekler",
+    "subtitle": "Taze malzemeler. Harika lezzet."
+  },
+  "item": {
+    "available": "Mevcut",
+    "unavailable": "Tükendi",
+    "currency": "Toman"
+  },
+  "section": {
+    "all": "Tüm ürünler",
+    "empty": "Bu kategoride henüz ürün yok"
+  },
+  "sidebar": {
+    "title": "Kategoriler",
+    "close": "Kapat"
+  }
+}

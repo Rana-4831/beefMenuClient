@@ -1,0 +1,19 @@
+{
+  "header": {
+    "title": "Delicious Food",
+    "subtitle": "Fresh ingredients. Great taste."
+  },
+  "item": {
+    "available": "Available",
+    "unavailable": "Unavailable",
+    "currency": "Toman"
+  },
+  "section": {
+    "all": "All items",
+    "empty": "No items in this category yet"
+  },
+  "sidebar": {
+    "title": "Categories",
+    "close": "Close"
+  }
+}
