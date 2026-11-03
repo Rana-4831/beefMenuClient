@@ -8,9 +8,11 @@ import SectionDivider from './SectionDivider'
 interface Props {
   products: Product[]
   lang: Language
+  onSelect?: (product: Product) => void
 }
 
-function ProductList({ products, lang }: Props) {
+function ProductList({ products, lang, onSelect }: Props) {
+
   const { t } = useTranslation()
   const [focusIndex, setFocusIndex] = useState(0)
 
@@ -52,6 +54,7 @@ function ProductList({ products, lang }: Props) {
               product={product}
               lang={lang}
               focused={i === focusIndex}
+              onSelect={onSelect}
             />
           ))}
         </div>

@@ -10,10 +10,21 @@
   },
   "section": {
     "all": "Tüm ürünler",
-    "empty": "Bu kategoride henüz ürün yok"
+    "empty": "Bu kategoride henüz ürün yok",
+    "bestSellers": "Çok Satanlar",
+    "bestSellersIn": "{{category}} çok satanlar"
   },
   "sidebar": {
     "title": "Kategoriler",
     "close": "Kapat"
+  },
+  "footer": {
+    "reserve": "Rezervasyon için ara",
+    "follow": "Bizi takip edin",
+    "about": "Hakkımızda"
+  },
+  "about": {
+    "title": "Hakkımızda",
+    "empty": "Hakkımızdaki metin yakında eklenecek."
   }
 }

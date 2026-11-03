@@ -27,13 +27,12 @@ type Props = {
   categories: Category[]
   activeId: string
   onSelect: (id: string) => void
-  counts: Record<string, number>
   lang: Language
   open: boolean
   onClose: () => void
 }
 
-function CategorySidebar({ categories, activeId, onSelect, counts, lang, open, onClose }: Props) {
+function CategorySidebar({ categories, activeId, onSelect, lang, open, onClose }: Props) {
   const { t } = useTranslation()
 
   // بستن با کلید Escape
@@ -82,7 +81,6 @@ function CategorySidebar({ categories, activeId, onSelect, counts, lang, open, o
           {categories.map((c) => {
             const Icon = iconMap[c.icon] ?? UtensilsCrossed
             const isActive = c.id === activeId
-            const count = counts[c.id] ?? 0
 
             return (
               <li key={c.id}>
@@ -100,9 +98,6 @@ function CategorySidebar({ categories, activeId, onSelect, counts, lang, open, o
                     <Icon strokeWidth={1.5} className="size-5" />
                   </span>
                   <span className="flex-1 font-medium">{c.name[lang]}</span>
-                  <span className="min-w-7 rounded-full bg-white/10 px-2 py-0.5 text-center text-xs text-white/90">
-                    {count}
-                  </span>
                 </button>
               </li>
             )

@@ -2,7 +2,7 @@ export type Category = {
   id: string
   icon: string
   name: { fa: string; en: string; tr: string }
-  description: { fa: string; en: string; tr: string }
+  description?: { fa: string; en: string; tr: string }
 }
 
 export const categories: Category[] = [
@@ -21,8 +21,7 @@ export const categories: Category[] = [
   {
     id: 'pasta',
     icon: 'pasta',
-    name: { fa: 'پاستا', en: 'Pasta', tr: 'Makarna' },
-    description: { fa: 'پاستای کremی با سس آلفredo.', en: 'Creamy pasta with Alfredo sauce.', tr: 'Alfredo soslu kremalı makarna.' },
+    name: { fa: 'پاستا', en: 'Pasta', tr: 'Makarna' }
   },
   {
     id: 'burger',

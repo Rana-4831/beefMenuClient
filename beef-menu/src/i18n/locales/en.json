@@ -10,10 +10,21 @@
   },
   "section": {
     "all": "All items",
-    "empty": "No items in this category yet"
+    "empty": "No items in this category yet",
+    "bestSellers": "Best Sellers",
+    "bestSellersIn": "Best sellers in {{category}}"
   },
   "sidebar": {
     "title": "Categories",
     "close": "Close"
+  },
+  "footer": {
+    "reserve": "Call to reserve",
+    "follow": "Follow us",
+    "about": "About us"
+  },
+  "about": {
+    "title": "About us",
+    "empty": "Our story is coming soon."
   }
 }

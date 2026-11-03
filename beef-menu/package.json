@@ -10,6 +10,9 @@
     "preview": "vite preview"
   },
   "dependencies": {
+    "@fontsource/cormorant-garamond": "^5.3.0",
+    "@fontsource/lalezar": "^5.3.0",
+    "@fontsource/vazirmatn": "^5.3.0",
     "@tailwindcss/vite": "^4.3.3",
     "i18next": "^26.7.1",
     "lucide-react": "^1.66.0",

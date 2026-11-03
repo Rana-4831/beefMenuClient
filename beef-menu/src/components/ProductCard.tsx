@@ -1,8 +1,8 @@
-import { UtensilsCrossed } from 'lucide-react'
 import { useTranslation } from 'react-i18next'
 import type { MouseEvent } from 'react'
 import type { Language } from '../i18n'
 import type { Localized, Product } from '../data/products'
+import CategoryIcon from './CategoryIcon'
 
 const numberLocales: Record<Language, string> = {
   fa: 'fa-IR',
@@ -14,15 +14,18 @@ interface Props {
   product: Product
   lang: Language
   focused: boolean
+  onSelect?: (product: Product) => void
 }
 
-function ProductCard({ product, lang, focused }: Props) {
+
+function ProductCard({ product, lang, focused, onSelect }: Props) {
   const { t } = useTranslation()
   const pick = (value: Localized) => value[lang] ?? value.en
   const price = new Intl.NumberFormat(numberLocales[lang]).format(product.price)
   const name = pick(product.name)
 
   // کلیک روی کارت کناری، اون رو وسط می‌بره
+  // کارت کناری: میره وسط. کارت وسطی: شیت باز میشه
   const handleClick = (e: MouseEvent<HTMLElement>) => {
     if (!focused) {
       e.currentTarget.scrollIntoView({
@@ -30,8 +33,11 @@ function ProductCard({ product, lang, focused }: Props) {
         inline: 'center',
         block: 'nearest',
       })
+      return
     }
+    onSelect?.(product)
   }
+
 
   return (
     <article
@@ -44,7 +50,7 @@ function ProductCard({ product, lang, focused }: Props) {
         {product.image ? (
           <img src={product.image} alt={name} loading="lazy" />
         ) : (
-          <UtensilsCrossed className="size-10 text-white/25" aria-hidden />
+          <CategoryIcon categoryId={product.categoryId} className="size-10 text-white/25" />
         )}
       </div>
 
