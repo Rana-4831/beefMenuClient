@@ -1,7 +1,8 @@
 {
   "header": {
     "title": "Lezzetli Yemekler",
-    "subtitle": "Taze malzemeler. Harika lezzet."
+    "subtitle": "Taze malzemeler. Harika lezzet.",
+    "categories": "Kategoriler"
   },
   "item": {
     "available": "Mevcut",
@@ -19,12 +20,20 @@
     "close": "Kapat"
   },
   "footer": {
-    "reserve": "Rezervasyon için ara",
+    "reserve": "Rezervasyon",
     "follow": "Bizi takip edin",
     "about": "Hakkımızda"
   },
   "about": {
     "title": "Hakkımızda",
     "empty": "Hakkımızdaki metin yakında eklenecek."
-  }
+  },
+  "newPopup": {
+    "kicker": "YENİ BİR KEŞİF",
+    "body": "Özenle hazırlandı, sofralarımızda yerini aldı. Sizi tanıştırmamızı ister misiniz?",
+    "view": "Keşfet",
+    "next": "Sonraki",
+    "later": "Şimdilik geç"
+  },
+  "landing": { "enter": "Menüye gir"}
 }

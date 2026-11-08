@@ -46,7 +46,8 @@ function ProductCard({ product, lang, focused, onSelect }: Props) {
       data-available={product.available}
       className="glass-card w-52 shrink-0 snap-center p-3"
     >
-      <div className="product-image">
+      <div className="product-image" data-empty={!product.image}>
+
         {product.image ? (
           <img src={product.image} alt={name} loading="lazy" />
         ) : (

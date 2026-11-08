@@ -11,6 +11,7 @@ export interface Product {
     available: boolean
     image?: string
     bestSeller?: boolean
+    isNew: boolean
 }
 
 export const products: Product[] = [
@@ -26,7 +27,8 @@ export const products: Product[] = [
         price: 250000,
         available: true,
         image: '/images/products/pizza-margherita.webp',
-        bestSeller: true
+        bestSeller: true,
+        isNew: false,
     },
     {
         id: 'p2',
@@ -39,9 +41,9 @@ export const products: Product[] = [
         },
         price: 180000,
         available: true,
-        image: '/images/products/pasta-alfredo.webp',
-
-        bestSeller: true
+        image: '/images/products/pasta.webp',
+        bestSeller: true,
+        isNew: false,
     },
     {
         id: 'p3',
@@ -54,6 +56,7 @@ export const products: Product[] = [
         },
         price: 220000,
         available: false,
+        isNew: false,
     },
     {
         id: 'p4',
@@ -66,39 +69,43 @@ export const products: Product[] = [
         },
         price: 420000,
         available: true,
-        bestSeller: true
+        bestSeller: true,
+        isNew: false,
     },
     {
-    id: 'p5',
-    categoryId: 'pizza',
-    name: { fa: 'پیتزا پپرونی', en: 'Pepperoni Pizza', tr: 'Pepperoni Pizza' },
-    description: { fa: 'پپرونی و پنیر موزارلا.', en: 'Pepperoni and mozzarella.', tr: 'Pepperoni ve mozzarella.' },
-    price: 280000,
-    available: true,
-},
-{
-    id: 'p6',
-    categoryId: 'pizza',
-    name: { fa: 'پیتزا قارچ', en: 'Mushroom Pizza', tr: 'Mantarlı Pizza' },
-    description: { fa: 'قارچ تازه و پنیر.', en: 'Fresh mushroom and cheese.', tr: 'Taze mantar ve peynir.' },
-    price: 260000,
-    available: true,
-},
-{
-    id: 'p7',
-    categoryId: 'salad',
-    name: { fa: 'سالاد سزار', en: 'Caesar Salad', tr: 'Sezar Salata' },
-    description: { fa: 'کاهو، مرغ و سس سزار.', en: 'Lettuce, chicken and Caesar dressing.', tr: 'Marul, tavuk ve sezar sos.' },
-    price: 150000,
-    available: true,
-},
-{
-    id: 'p8',
-    categoryId: 'drinks',
-    name: { fa: 'لیموناد', en: 'Lemonade', tr: 'Limonata' },
-    description: { fa: 'لیموناد خنک و تازه.', en: 'Cold fresh lemonade.', tr: 'Soğuk taze limonata.' },
-    price: 70000,
-    available: true,
-},
-
+        id: 'p5',
+        categoryId: 'pizza',
+        name: { fa: 'پیتزا پپرونی', en: 'Pepperoni Pizza', tr: 'Pepperoni Pizza' },
+        description: { fa: 'پپرونی و پنیر موزارلا.', en: 'Pepperoni and mozzarella.', tr: 'Pepperoni ve mozzarella.' },
+        price: 280000,
+        available: true,
+        isNew: false,
+    },
+    {
+        id: 'p6',
+        categoryId: 'pizza',
+        name: { fa: 'پیتزا قارچ', en: 'Mushroom Pizza', tr: 'Mantarlı Pizza' },
+        description: { fa: 'قارچ تازه و پنیر.', en: 'Fresh mushroom and cheese.', tr: 'Taze mantar ve peynir.' },
+        price: 260000,
+        available: true,
+        isNew: false,
+    },
+    {
+        id: 'p7',
+        categoryId: 'salad',
+        name: { fa: 'سالاد سزار', en: 'Caesar Salad', tr: 'Sezar Salata' },
+        description: { fa: 'کاهو، مرغ و سس سزار.', en: 'Lettuce, chicken and Caesar dressing.', tr: 'Marul, tavuk ve sezar sos.' },
+        price: 150000,
+        available: true,
+        isNew: true,
+    },
+    {
+        id: 'p8',
+        categoryId: 'drinks',
+        name: { fa: 'لیموناد', en: 'Lemonade', tr: 'Limonata' },
+        description: { fa: 'لیموناد خنک و تازه.', en: 'Cold fresh lemonade.', tr: 'Soğuk taze limonata.' },
+        price: 70000,
+        available: true,
+        isNew: true,
+    },
 ]

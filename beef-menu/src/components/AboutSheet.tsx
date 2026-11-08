@@ -61,7 +61,7 @@ function AboutSheet({ open, onClose, about }: Props) {
             <div
                 aria-hidden="true"
                 onClick={onClose}
-                className={`absolute inset-0 bg-black/60 transition-opacity duration-700 motion-reduce:transition-none ${
+                className={`absolute inset-0 bg-black/60 transition-opacity duration-300 motion-reduce:transition-none ${
                     visible ? 'opacity-100' : 'opacity-0'
                 }`}
             />
@@ -70,28 +70,28 @@ function AboutSheet({ open, onClose, about }: Props) {
                 role="dialog"
                 aria-modal="true"
                 aria-labelledby="about-title"
-                className={`relative w-full max-w-md max-h-[90dvh] overflow-x-hidden overflow-y-auto rounded-t-3xl border-t border-[#D4AF7A]/40 bg-[#1A1914]/90 p-6 pb-[max(1.5rem,env(safe-area-inset-bottom))] text-[#F3E7D0] backdrop-blur-xl transition-transform duration-700 ease-out motion-reduce:transition-none ${
+                className={`relative w-full max-w-md max-h-[90dvh] overflow-x-hidden overflow-y-auto rounded-t-3xl border-t border-gold/30 bg-surface/45 p-6 pb-[max(1.5rem,env(safe-area-inset-bottom))] text-cream backdrop-blur-xl transition-transform duration-300 ease-out motion-reduce:transition-none ${
                     visible ? 'translate-y-0' : 'translate-y-full'
                 }`}
             >
                 <div className="mb-4 flex items-center justify-between">
-                    <h2 id="about-title" className="text-xl font-bold">
+                    <h2 id="about-title" className="text-xl font-bold text-cream">
                         {t('about.title')}
                     </h2>
                     <button
                         type="button"
                         onClick={onClose}
                         aria-label="close"
-                        className="flex h-9 w-9 items-center justify-center rounded-full border border-white/10 bg-white/5 text-[#D4AF7A] transition duration-200 active:scale-95"
+                        className="flex h-9 w-9 items-center justify-center rounded-full border border-gold/40 text-gold transition duration-200 active:scale-95"
                     >
                         <X size={18} />
                     </button>
                 </div>
 
                 {body ? (
-                    <p className="whitespace-pre-line break-words text-sm leading-7 text-white/85">{body}</p>
+                    <p className="whitespace-pre-line break-words text-sm leading-7 text-cream/80">{body}</p>
                 ) : (
-                    <p className="text-sm text-white/50">{t('about.empty')}</p>
+                    <p className="text-sm text-cream/50">{t('about.empty')}</p>
                 )}
             </section>
         </div>

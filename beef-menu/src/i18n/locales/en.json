@@ -1,7 +1,8 @@
 {
   "header": {
     "title": "Delicious Food",
-    "subtitle": "Fresh ingredients. Great taste."
+    "subtitle": "Fresh ingredients. Great taste.",
+    "categories": "Categories"
   },
   "item": {
     "available": "Available",
@@ -19,12 +20,20 @@
     "close": "Close"
   },
   "footer": {
-    "reserve": "Call to reserve",
+    "reserve": "Reservation",
     "follow": "Follow us",
     "about": "About us"
   },
   "about": {
     "title": "About us",
     "empty": "Our story is coming soon."
-  }
+  },
+  "newPopup": {
+    "kicker": "A NEW DISCOVERY",
+    "body": "Crafted with care, now part of our table. Shall we introduce it to you?",
+    "view": "Discover",
+    "next": "Next",
+    "later": "Maybe later"
+  },
+  "landing": { "enter": "Enter menu"}
 }

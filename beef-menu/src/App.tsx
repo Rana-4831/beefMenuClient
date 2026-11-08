@@ -1,4 +1,4 @@
-import { useCallback, useState } from 'react'
+import { useCallback, useMemo, useState } from 'react'
 import { useTranslation } from 'react-i18next'
 import type { Language } from './i18n'
 import Header from './components/Header'
@@ -12,6 +12,8 @@ import ProductSheet from './components/ProductSheet'
 import Footer from './components/Footer'
 import AboutSheet from './components/AboutSheet'
 import { aboutMock } from './data/about'
+import NewProductPopup from './components/NewProductPopup'
+import Landing from './components/Landing'
 
 // دسته‌ی اول ("همه") همه‌ی محصولات رو نشون می‌ده
 const ALL_ID = categories[0].id
@@ -23,6 +25,7 @@ function App() {
   const [sidebarOpen, setSidebarOpen] = useState(false)
   const [selected, setSelected] = useState<Product | null>(null)
   const [aboutOpen, setAboutOpen] = useState(false)
+  const [entered, setEntered] = useState(false)
   const closeAbout = useCallback(() => setAboutOpen(false), [])
   const active = categories.find((c) => c.id === activeId) ?? categories[0]
 
@@ -31,13 +34,26 @@ function App() {
       ? products
       : products.filter((p) => p.categoryId === activeId)
 
+  // همه‌ی محصولات (نه فقط دسته‌ی فعلی) برای پاپ‌آپ محصول جدید
+  const newItems = useMemo(
+    () =>
+      products.map((p) => ({
+        id: p.id,
+        name: p.name[lang],
+        image: p.image,
+        isNew: p.isNew,
+      })),
+    [lang],
+  )
 
   return (
     <div className="pb-28">
+      {!entered && <Landing onEnter={() => setEntered(true)} />}
 
-      {/* فقط لوگو و زبان استیکی هستن */}
-      {/* هدر استیکی: همبرگر و زبان */}
-      <div className="sticky top-0 z-40 border-b border-white/5 bg-bg/70 backdrop-blur-xl">
+      {/* هدر استیکی: قرص دسته‌بندی و زبان وسط بالا */}
+      <div className="sticky top-1.5 z-40">
+
+
         <Header onMenuClick={() => setSidebarOpen(true)} />
       </div>
 
@@ -78,8 +94,6 @@ function App() {
         )}
       </section>
 
-
-
       <ProductList
         key={`list-${activeId}`}
         products={visibleProducts}
@@ -96,6 +110,15 @@ function App() {
       />
       <Footer onAboutClick={() => setAboutOpen(true)} />
       <AboutSheet open={aboutOpen} onClose={closeAbout} about={aboutMock.about} />
+      {entered && (
+        <NewProductPopup
+          items={newItems}
+          onView={(id) => {
+            const product = products.find((p) => p.id === id)
+            if (product) setSelected(product)
+          }}
+        />
+      )}
     </div>
   )
 }

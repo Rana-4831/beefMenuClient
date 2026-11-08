@@ -1,9 +1,8 @@
-import { useState, type UIEvent } from 'react'
+import { useEffect, useRef, useState, type UIEvent } from 'react'
 import { useTranslation } from 'react-i18next'
 import type { Language } from '../i18n'
 import type { Product } from '../data/products'
 import ProductCard from './ProductCard'
-import SectionDivider from './SectionDivider'
 
 interface Props {
   products: Product[]
@@ -15,9 +14,36 @@ function ProductList({ products, lang, onSelect }: Props) {
 
   const { t } = useTranslation()
   const [focusIndex, setFocusIndex] = useState(0)
+  const scrollerRef = useRef<HTMLDivElement>(null)
+  const focusRef = useRef(0)
+  // وقتی زبان عوض میشه، اسکرول‌های ناشی از تغییر جهت نباید فوکوس رو عوض کنن
+  const lockRef = useRef(false)
+
+  focusRef.current = focusIndex
+
+  // بعد از عوض شدن زبان، کارت فعلی رو دوباره وسط بیار
+  useEffect(() => {
+    const scroller = scrollerRef.current
+    const card = scroller?.children[focusRef.current] as HTMLElement | undefined
+    if (!scroller || !card) return
+
+    lockRef.current = true
+    card.scrollIntoView({
+      inline: 'center',
+      block: 'nearest',
+      behavior: 'instant' as ScrollBehavior,
+    })
+    // بعد از تموم شدن اسکرول‌های برنامه‌ای، قفل رو باز کن
+    const id = window.setTimeout(() => {
+      lockRef.current = false
+    }, 150)
+    return () => window.clearTimeout(id)
+  }, [lang])
 
   // نزدیک‌ترین کارت به مرکز اسکرولر رو پیدا می‌کنه
   const handleScroll = (e: UIEvent<HTMLDivElement>) => {
+    if (lockRef.current) return
+
     const scroller = e.currentTarget
     const rect = scroller.getBoundingClientRect()
     const center = rect.left + rect.width / 2
@@ -37,14 +63,18 @@ function ProductList({ products, lang, onSelect }: Props) {
 
   return (
     <section aria-labelledby="products-heading" className="mt-6">
-      <SectionDivider id="products-heading" title={t('section.all')} />
+      {/* جداکننده‌ی تصویری حذف شد؛ عنوان فقط برای دسترسی‌پذیری می‌مونه */}
+      <h2 id="products-heading" className="sr-only">
+        {t('section.all')}
+      </h2>
 
       {products.length === 0 ? (
-        <p className="px-6 py-10 text-center text-sm text-white/50">
+        <p className="px-6 py-10 text-center text-sm text-cream/50">
           {t('section.empty')}
         </p>
       ) : (
         <div
+          ref={scrollerRef}
           onScroll={handleScroll}
           className="products-scroll mt-4 flex gap-3 overflow-x-auto snap-x snap-mandatory pt-6 pb-10"
         >
