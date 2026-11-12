@@ -3,7 +3,7 @@ export type Category = {
   icon: string
   name: { fa: string; en: string; tr: string }
   description?: { fa: string; en: string; tr: string }
-}
+}[]
 
 export const categories: Category[] = [
   {

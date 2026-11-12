@@ -1,11 +1,11 @@
-import { useCallback, useMemo, useState } from 'react'
+import { useCallback, useEffect, useMemo, useState } from 'react'
 import { useTranslation } from 'react-i18next'
 import type { Language } from './i18n'
 import Header from './components/Header'
 import CategorySidebar from './components/CategorySidebar'
 import ProductList from './components/ProductList'
-import { categories } from './data/categories'
-import { products, type Product } from './data/products'
+import type { Category, Product } from './types'
+import { getCategories, getProducts } from './api/menu'
 import CategoryBar from './components/CategoryBar'
 import BestSellers from './components/BestSellers'
 import ProductSheet from './components/ProductSheet'
@@ -15,19 +15,51 @@ import { aboutMock } from './data/about'
 import NewProductPopup from './components/NewProductPopup'
 import Landing from './components/Landing'
 
-// دسته‌ی اول ("همه") همه‌ی محصولات رو نشون می‌ده
-const ALL_ID = categories[0].id
+// دسته‌ی «همه» در دیتابیس نیست و در فرانت ساخته می‌شه
+const ALL_ID = 'all'
+const ALL_CATEGORY: Category = {
+  id: ALL_ID,
+  icon: 'all',
+  name: { fa: 'همه‌ی محصولات', en: 'All Items', tr: 'Tüm Ürünler' },
+  description: {
+    fa: 'مواد تازه. طعم عالی.',
+    en: 'Fresh ingredients. Great taste.',
+    tr: 'Taze malzemeler. Harika lezzet.',
+  },
+}
 
 function App() {
   const { i18n } = useTranslation()
   const lang = i18n.language as Language
+  const [apiCategories, setApiCategories] = useState<Category[]>([])
+  const [products, setProducts] = useState<Product[]>([])
+  const [failed, setFailed] = useState(false)
   const [activeId, setActiveId] = useState(ALL_ID)
   const [sidebarOpen, setSidebarOpen] = useState(false)
   const [selected, setSelected] = useState<Product | null>(null)
   const [aboutOpen, setAboutOpen] = useState(false)
   const [entered, setEntered] = useState(false)
   const closeAbout = useCallback(() => setAboutOpen(false), [])
-  const active = categories.find((c) => c.id === activeId) ?? categories[0]
+
+  // دسته‌ها باید قبل از محصولات ست بشن تا آیکون‌ها پیدا بشن
+  useEffect(() => {
+    let cancelled = false
+    Promise.all([getCategories(), getProducts()])
+      .then(([c, p]) => {
+        if (cancelled) return
+        setApiCategories(c)
+        setProducts(p)
+      })
+      .catch(() => {
+        if (!cancelled) setFailed(true)
+      })
+    return () => {
+      cancelled = true
+    }
+  }, [])
+
+  const categories = useMemo(() => [ALL_CATEGORY, ...apiCategories], [apiCategories])
+  const active = categories.find((c) => c.id === activeId) ?? ALL_CATEGORY
 
   const visibleProducts =
     activeId === ALL_ID
@@ -43,20 +75,18 @@ function App() {
         image: p.image,
         isNew: p.isNew,
       })),
-    [lang],
+    [products, lang],
   )
 
   return (
-    <div className="pb-28">
+    <div className={`pb-28 ${entered ? '' : 'invisible'}`}>
+
       {!entered && <Landing onEnter={() => setEntered(true)} />}
 
       {/* هدر استیکی: قرص دسته‌بندی و زبان وسط بالا */}
       <div className="sticky top-1.5 z-40">
-
-
         <Header onMenuClick={() => setSidebarOpen(true)} />
       </div>
-
 
       {/* نوار دسته‌ها با صفحه اسکرول میشه */}
       <div className="pt-4">
@@ -93,6 +123,12 @@ function App() {
           </>
         )}
       </section>
+
+      {failed && (
+        <p className="px-5 pt-6 text-sm text-red-400">
+          Connection error
+        </p>
+      )}
 
       <ProductList
         key={`list-${activeId}`}

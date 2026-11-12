@@ -19,13 +19,22 @@ export default function Landing({ onEnter }: Props) {
 
     useEffect(() => {
         const html = document.documentElement
-        const prevHtml = html.style.overflow
-        const prevBody = document.body.style.overflow
+        const body = document.body
+        const prev = {
+            htmlOverflow: html.style.overflow,
+            bodyOverflow: body.style.overflow,
+            htmlBg: html.style.background,
+            bodyBg: body.style.background,
+        }
         html.style.overflow = 'hidden'
-        document.body.style.overflow = 'hidden'
+        body.style.overflow = 'hidden'
+        html.style.background = '#1a0d08'
+        body.style.background = 'transparent'
         return () => {
-            html.style.overflow = prevHtml
-            document.body.style.overflow = prevBody
+            html.style.overflow = prev.htmlOverflow
+            body.style.overflow = prev.bodyOverflow
+            html.style.background = prev.htmlBg
+            body.style.background = prev.bodyBg
         }
     }, [])
 
@@ -41,7 +50,7 @@ export default function Landing({ onEnter }: Props) {
 
     return (
         <div
-            className={`fixed inset-0 z-[100] overflow-hidden bg-black transition-opacity ${leaving ? 'opacity-0' : 'opacity-100'}`}
+            className={`visible fixed inset-x-0 -top-25 -bottom-24 z-[100] overflow-hidden transition-opacity ${leaving ? 'opacity-0' : 'opacity-100'}`}
             style={{ transitionDuration: `${FADE_MS}ms` }}
         >
             <img
@@ -51,12 +60,11 @@ export default function Landing({ onEnter }: Props) {
             />
             <div className="absolute inset-0 bg-black/55" />
 
-            <div className="absolute inset-0 flex flex-col items-center justify-center px-6 pb-[16%]">
+            <div className="absolute inset-x-0 top-24 bottom-24 flex flex-col items-center justify-center px-6 pb-[16%]">
                 <img
                     src={LOGO_IMG}
                     alt="Beef"
                     className="w-full max-w-[260px] mix-blend-screen"
-
                     style={{ transform: 'translate(3.6%, -9.4%)' }}
                 />
 
@@ -82,7 +90,7 @@ export default function Landing({ onEnter }: Props) {
 
             <a
                 href="mailto:ranarajehdoust@gmail.com"
-                className={`absolute inset-x-0 bottom-0 pb-[max(1rem,env(safe-area-inset-bottom))] text-center text-[11px] tracking-wide text-cream/50 transition-opacity duration-500 hover:text-cream/80 ${showButton ? 'opacity-100' : 'opacity-0'}`}
+                className={`absolute inset-x-0 bottom-24 pb-[max(1rem,env(safe-area-inset-bottom))] text-center text-[11px] tracking-wide text-cream/50 transition-opacity duration-500 hover:text-cream/80 ${showButton ? 'opacity-100' : 'opacity-0'}`}
             >
                 Designed &amp; developed by ranarajehdoust@gmail.com
             </a>

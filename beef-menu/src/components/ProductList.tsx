@@ -7,10 +7,11 @@ import ProductCard from './ProductCard'
 interface Props {
   products: Product[]
   lang: Language
+  loading?: boolean
   onSelect?: (product: Product) => void
 }
 
-function ProductList({ products, lang, onSelect }: Props) {
+function ProductList({ products, lang, loading, onSelect }: Props) {
 
   const { t } = useTranslation()
   const [focusIndex, setFocusIndex] = useState(0)
@@ -68,7 +69,17 @@ function ProductList({ products, lang, onSelect }: Props) {
         {t('section.all')}
       </h2>
 
-      {products.length === 0 ? (
+      {loading ? (
+        <div className="products-scroll mt-4 flex gap-3 overflow-x-auto pt-6 pb-10" aria-busy="true">
+          {[0, 1, 2].map(i => (
+            <div key={i} className="glass-card w-52 shrink-0 snap-center p-3" data-focused={i === 1} aria-hidden>
+              <div className="skeleton-box shimmer-bg" />
+              <div className="skeleton-line shimmer-bg mt-3 h-4 w-3/4" />
+              <div className="skeleton-line shimmer-bg mt-2 h-3 w-1/2" />
+            </div>
+          ))}
+        </div>
+      ) : products.length === 0 ? (
         <p className="px-6 py-10 text-center text-sm text-cream/50">
           {t('section.empty')}
         </p>

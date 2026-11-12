@@ -1,5 +1,5 @@
 import { useTranslation } from 'react-i18next'
-import type { MouseEvent } from 'react'
+import { useState, type MouseEvent } from 'react'
 import type { Language } from '../i18n'
 import type { Localized, Product } from '../data/products'
 import CategoryIcon from './CategoryIcon'
@@ -24,6 +24,11 @@ function ProductCard({ product, lang, focused, onSelect }: Props) {
   const price = new Intl.NumberFormat(numberLocales[lang]).format(product.price)
   const name = pick(product.name)
 
+    const [loaded, setLoaded] = useState(false)
+  const [failed, setFailed] = useState(false)
+  const showImg = !!product.image && !failed
+
+
   // کلیک روی کارت کناری، اون رو وسط می‌بره
   // کارت کناری: میره وسط. کارت وسطی: شیت باز میشه
   const handleClick = (e: MouseEvent<HTMLElement>) => {
@@ -46,14 +51,25 @@ function ProductCard({ product, lang, focused, onSelect }: Props) {
       data-available={product.available}
       className="glass-card w-52 shrink-0 snap-center p-3"
     >
-      <div className="product-image" data-empty={!product.image}>
-
-        {product.image ? (
-          <img src={product.image} alt={name} loading="lazy" />
+      <div
+        className="product-image"
+        data-empty={!showImg}
+        data-loading={showImg && !loaded}
+      >
+        {showImg ? (
+          <img
+            src={product.image!}
+            alt={name}
+            loading="lazy"
+            data-loaded={loaded}
+            onLoad={() => setLoaded(true)}
+            onError={() => setFailed(true)}
+          />
         ) : (
           <CategoryIcon categoryId={product.categoryId} className="size-10 text-white/25" />
         )}
       </div>
+
 
       <h3 className="product-title">{name}</h3>
       <p className="product-desc">{pick(product.description)}</p>

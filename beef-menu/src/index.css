@@ -46,15 +46,16 @@ body::-webkit-scrollbar {
 }
 
 
-/* لایه‌ی بک‌گراند ثابت */
 body::before {
   content: "";
   position: fixed;
   inset: 0;
-  z-index: -2;
-  background: url("/images/bg.webp") center / cover no-repeat;
-  opacity: 0.3;
-  filter: blur(2px) grayscale(1);
+  z-index: 0;
+  pointer-events: none;
+background: url("/images/bg.webp") center / 125% auto no-repeat;
+
+  opacity: 0.1;
+filter: grayscale(1) blur(2px) brightness(1.5);
 }
 
 /* هاله‌ی قرمز بزرگ حذف شد؛ فقط یک نور خیلی ملایم شیری و گرادیان طوسی */
@@ -377,4 +378,66 @@ body::after {
 .product-image[data-empty='true'] {
   background: none;
   overflow: visible;
+}
+
+/* ---------- Loading ---------- */
+@keyframes shimmer {
+  from { background-position: 200% 0; }
+  to { background-position: -200% 0; }
+}
+
+.shimmer-bg {
+  background: linear-gradient(90deg,
+      rgba(239, 232, 218, 0.05) 25%,
+      rgba(239, 232, 218, 0.14) 50%,
+      rgba(239, 232, 218, 0.05) 75%);
+  background-size: 200% 100%;
+  animation: shimmer 1.4s ease-in-out infinite;
+}
+
+/* اسکلتون لیست */
+.skeleton-box {
+  aspect-ratio: 1 / 1;
+  border-radius: 1rem;
+  background-color: rgba(0, 0, 0, 0.2);
+}
+
+.skeleton-line {
+  border-radius: 9999px;
+}
+
+/* شیمر روی جای عکس تا وقتی عکس لود نشده */
+.product-image[data-loading='true'] {
+  position: relative;
+  background: none;
+}
+
+.product-image[data-loading='true']::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  border-radius: inherit;
+  background: linear-gradient(90deg,
+      rgba(239, 232, 218, 0.05) 25%,
+      rgba(239, 232, 218, 0.14) 50%,
+      rgba(239, 232, 218, 0.05) 75%);
+  background-size: 200% 100%;
+  animation: shimmer 1.4s ease-in-out infinite;
+}
+
+/* عکس تا لود نشده محو است و بعد نرم ظاهر می‌شود */
+.product-image img {
+  opacity: 0;
+  transition: opacity 0.5s ease;
+}
+
+.product-image img[data-loaded='true'] {
+  opacity: 1;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .shimmer-bg,
+  .product-image[data-loading='true']::before {
+    animation: none;
+  }
 }
