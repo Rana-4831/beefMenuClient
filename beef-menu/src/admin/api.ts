@@ -58,7 +58,7 @@ export const updateCategory = (id: number, d: Partial<CategoryInput>) =>
 
 export type Product = {
   id: number
-  categoryId: number
+  categoryId: number | null
   name: Tri
   description: Tri
   price: number
@@ -78,7 +78,7 @@ export type ProductInput = {
   is_new: boolean
 }
 
-export const getProducts = () => api<Product[]>('/getProducts')
+export const getProducts = () => api<Product[]>('/getProducts?with_uncategorized=1')
 export const storeProduct = (d: ProductInput) =>
   api<Product>('/store-product', { method: 'POST', body: JSON.stringify(d) })
 export const updateProduct = (id: number, d: Partial<ProductInput>) =>
@@ -114,3 +114,6 @@ export const setAvailability = (id: number, available: boolean) =>
 
 export const setPrice = (id: number, price: number) =>
   updateProduct(id, { price })
+
+export const deleteCategory = (id: number) =>
+  api<{ ok: boolean }>(`/delete-category/${id}`, { method: 'POST' })

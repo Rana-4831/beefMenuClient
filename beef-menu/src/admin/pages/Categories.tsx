@@ -2,7 +2,7 @@ import { useEffect, useState, type FormEvent } from 'react'
 import { Link } from 'react-router-dom'
 import {
   ApiError, getCategories, getIcons, storeCategory, updateCategory,
-  reorderCategories, moveIds,
+  reorderCategories, moveIds, deleteCategory,
   type Category, type CategoryInput,
 } from '../api'
 
@@ -47,6 +47,17 @@ export default function Categories() {
       await load()
     } catch {
       setErr('خطا در تغییر ترتیب')
+    } finally { setMoving(false) }
+  }
+
+  async function remove(c: Category) {
+    if (!confirm(`دسته‌بندی «${c.name.fa}» حذف شود؟ محصولات آن حذف نمی‌شوند و بدون دسته‌بندی و مخفی می‌مانند.`)) return
+    setErr(''); setMoving(true)
+    try {
+      await deleteCategory(c.id)
+      await load()
+    } catch {
+      setErr('خطا در حذف دسته‌بندی')
     } finally { setMoving(false) }
   }
 
@@ -124,6 +135,13 @@ export default function Categories() {
                   >▼</button>
                   <button onClick={() => startEdit(c)} className="rounded bg-neutral-800 px-3 py-1 text-sm">
                     ویرایش
+                  </button>
+                  <button
+                    onClick={() => remove(c)}
+                    disabled={moving}
+                    className="rounded bg-red-500/20 px-3 py-1 text-sm text-red-400 disabled:opacity-30"
+                  >
+                    حذف
                   </button>
                 </div>
               </li>

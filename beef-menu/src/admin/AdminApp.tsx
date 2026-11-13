@@ -18,8 +18,8 @@ function Guard({ allow = ['admin', 'staff'], children }: { allow?: Role[]; child
 const menu = [
   {
     to: '/categories',
-    title: 'دستهبندیها',
-    desc: 'افزودن، ویرایش و جستجوی دستهبندیها',
+    title: 'دسته بندی ها',
+    desc: 'افزودن، ویرایش و جستجوی دسته بندی ها',
     role: 'admin' as Role,
     icon: <path d="M4 4h7v7H4zM13 4h7v7h-7zM4 13h7v7H4zM13 13h7v7h-7z" />,
   },
@@ -32,8 +32,8 @@ const menu = [
   },
   {
     to: '/prices',
-    title: 'قیمتها',
-    desc: 'تغییر سریع قیمت محصولات بدون صفحهی ویرایش',
+    title: 'قیمت ها',
+    desc: 'تغییر سریع قیمت محصولات بدون صفحه ی ویرایش',
     role: 'admin' as Role,
     icon: <path d="M4 6h16M4 12h10M4 18h7M17 15v6m-3-3h6" />,
   },
@@ -60,7 +60,7 @@ function Home() {
             <h1 className="text-lg font-bold">پنل مدیریت</h1>
             <p className="text-xs text-neutral-400">
               {t('role')}:{' '}
-              <span className={`rounded-full px-2 py-0.5 ${isAdmin ? 'bg-amber-500/20 text-amber-400' : 'bg-neutral-800 text-neutral-300'}`}>
+              <span className={`rounded-full px-2 py-0.5 ${isAdmin ? 'bg-accent/20 text-rose-400' : 'bg-neutral-800 text-neutral-300'}`}> 
                 {auth.role}
               </span>
             </p>
@@ -82,9 +82,9 @@ function Home() {
             <Link
               key={m.to}
               to={m.to}
-              className="group flex items-start gap-4 rounded-2xl border border-neutral-800 bg-neutral-900 p-5 transition hover:border-amber-500/60 hover:bg-neutral-900/80"
+              className="group flex items-start gap-4 rounded-2xl border border-neutral-800 bg-neutral-900 p-5 transition hover:border-accent hover:bg-neutral-900/80"
             >
-              <span className="flex h-12 w-12 shrink-0 items-center justify-center rounded-xl bg-amber-500/15 text-amber-400 transition group-hover:bg-amber-500 group-hover:text-black">
+              <span className="flex h-12 w-12 shrink-0 items-center justify-center rounded-xl bg-accent/15 text-rose-400 transition group-hover:bg-accent group-hover:text-white">
                 <svg viewBox="0 0 24 24" className="h-6 w-6" fill="none" stroke="currentColor" strokeWidth={1.8} strokeLinecap="round" strokeLinejoin="round">
                   {m.icon}
                 </svg>
@@ -93,7 +93,7 @@ function Home() {
                 <span className="block text-base font-bold">{m.title}</span>
                 <span className="mt-1 block text-sm text-neutral-400">{m.desc}</span>
               </span>
-              <span className="self-center text-neutral-600 transition group-hover:-translate-x-1 group-hover:text-amber-400">←</span>
+              <span className="self-center text-neutral-600 transition group-hover:-translate-x-1 group-hover:text-rose-400">←</span>
             </Link>
           ))}
         </div>

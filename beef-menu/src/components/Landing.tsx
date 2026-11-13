@@ -28,7 +28,7 @@ export default function Landing({ onEnter }: Props) {
         }
         html.style.overflow = 'hidden'
         body.style.overflow = 'hidden'
-        html.style.background = '#1a0d08'
+        html.style.background = '#000000'
         body.style.background = 'transparent'
         return () => {
             html.style.overflow = prev.htmlOverflow
@@ -77,15 +77,16 @@ export default function Landing({ onEnter }: Props) {
                     </span>
                 </div>
 
-                <button
-                    type="button"
-                    onClick={handleEnter}
-                    className={`mt-14 flex items-center gap-3 rounded-full border border-white/20 bg-accent/30 px-8 py-3 font-latin-serif text-base text-cream backdrop-blur-xl transition-all duration-500 ${showButton ? 'translate-y-0 opacity-100' : 'pointer-events-none translate-y-2 opacity-0'}`}
-                    style={{ boxShadow: 'inset 0 1px 0 rgba(255,255,255,0.18)' }}
-                >
-                    {t('landing.enter')}
-                    <LogIn className="h-4 w-4" strokeWidth={1.5} />
-                </button>
+<button
+    type="button"
+    onClick={handleEnter}
+    className={`mt-14 flex items-center gap-3 rounded-full border border-white/20 bg-accent/50 px-8 py-3 font-latin-serif text-base text-cream transition-all duration-500 active:scale-[0.97] ${showButton ? 'translate-y-0 opacity-100' : 'pointer-events-none translate-y-2 opacity-0'}`}
+    style={{ boxShadow: 'inset 0 1px 0 rgba(255,255,255,0.2)' }}
+>
+    {t('landing.enter')}
+    <LogIn className="h-4 w-4" strokeWidth={1.5} />
+</button>
+
             </div>
 
             <a
